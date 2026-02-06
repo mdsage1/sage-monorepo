@@ -30,7 +30,10 @@ export namespace OrgSagebionetworksRepoModelMigrationMigrationTypeChecksum {
       'org.sagebionetworks.repo.model.migration.MigrationTypeChecksum' as ConcreteTypeEnum,
   };
   export type MigrationTypeEnum =
+    | 'REALM'
+    | 'REALM_IDP'
     | 'PRINCIPAL'
+    | 'REALM_PRINCIPAL'
     | 'GROUP_MEMBERS'
     | 'CREDENTIAL'
     | 'AUTHENTICATED_ON'
@@ -153,12 +156,16 @@ export namespace OrgSagebionetworksRepoModelMigrationMigrationTypeChecksum {
     | 'GRID_REPLICA'
     | 'GRID_CONNECTION'
     | 'GRID_PATCH'
+    | 'GRID_SNAPSHOT'
     | 'CURATION_TASK'
     | 'USER_STATUS'
     | 'RECORDSET_VALIDATION_STATS'
     | 'CHANGE';
   export const MigrationTypeEnum = {
+    Realm: 'REALM' as MigrationTypeEnum,
+    RealmIdp: 'REALM_IDP' as MigrationTypeEnum,
     Principal: 'PRINCIPAL' as MigrationTypeEnum,
+    RealmPrincipal: 'REALM_PRINCIPAL' as MigrationTypeEnum,
     GroupMembers: 'GROUP_MEMBERS' as MigrationTypeEnum,
     Credential: 'CREDENTIAL' as MigrationTypeEnum,
     AuthenticatedOn: 'AUTHENTICATED_ON' as MigrationTypeEnum,
@@ -282,13 +289,17 @@ export namespace OrgSagebionetworksRepoModelMigrationMigrationTypeChecksum {
     GridReplica: 'GRID_REPLICA' as MigrationTypeEnum,
     GridConnection: 'GRID_CONNECTION' as MigrationTypeEnum,
     GridPatch: 'GRID_PATCH' as MigrationTypeEnum,
+    GridSnapshot: 'GRID_SNAPSHOT' as MigrationTypeEnum,
     CurationTask: 'CURATION_TASK' as MigrationTypeEnum,
     UserStatus: 'USER_STATUS' as MigrationTypeEnum,
     RecordsetValidationStats: 'RECORDSET_VALIDATION_STATS' as MigrationTypeEnum,
     Change: 'CHANGE' as MigrationTypeEnum,
   };
   export type TypeEnum =
+    | 'REALM'
+    | 'REALM_IDP'
     | 'PRINCIPAL'
+    | 'REALM_PRINCIPAL'
     | 'GROUP_MEMBERS'
     | 'CREDENTIAL'
     | 'AUTHENTICATED_ON'
@@ -411,12 +422,16 @@ export namespace OrgSagebionetworksRepoModelMigrationMigrationTypeChecksum {
     | 'GRID_REPLICA'
     | 'GRID_CONNECTION'
     | 'GRID_PATCH'
+    | 'GRID_SNAPSHOT'
     | 'CURATION_TASK'
     | 'USER_STATUS'
     | 'RECORDSET_VALIDATION_STATS'
     | 'CHANGE';
   export const TypeEnum = {
+    Realm: 'REALM' as TypeEnum,
+    RealmIdp: 'REALM_IDP' as TypeEnum,
     Principal: 'PRINCIPAL' as TypeEnum,
+    RealmPrincipal: 'REALM_PRINCIPAL' as TypeEnum,
     GroupMembers: 'GROUP_MEMBERS' as TypeEnum,
     Credential: 'CREDENTIAL' as TypeEnum,
     AuthenticatedOn: 'AUTHENTICATED_ON' as TypeEnum,
@@ -539,6 +554,7 @@ export namespace OrgSagebionetworksRepoModelMigrationMigrationTypeChecksum {
     GridReplica: 'GRID_REPLICA' as TypeEnum,
     GridConnection: 'GRID_CONNECTION' as TypeEnum,
     GridPatch: 'GRID_PATCH' as TypeEnum,
+    GridSnapshot: 'GRID_SNAPSHOT' as TypeEnum,
     CurationTask: 'CURATION_TASK' as TypeEnum,
     UserStatus: 'USER_STATUS' as TypeEnum,
     RecordsetValidationStats: 'RECORDSET_VALIDATION_STATS' as TypeEnum,

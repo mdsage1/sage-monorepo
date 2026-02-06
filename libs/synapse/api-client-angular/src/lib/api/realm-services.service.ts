@@ -23,13 +23,11 @@ import { CustomHttpParameterCodec } from '../encoder';
 import { Observable } from 'rxjs';
 
 // @ts-ignore
-import { OrgSagebionetworksRepoModelSearchQuerySearchQuery } from '../model/org-sagebionetworks-repo-model-search-query-search-query';
+import { OrgSagebionetworksRepoModelAuthRealm } from '../model/org-sagebionetworks-repo-model-auth-realm';
 // @ts-ignore
-import { OrgSagebionetworksRepoModelSearchQuerySuggestionQuery } from '../model/org-sagebionetworks-repo-model-search-query-suggestion-query';
+import { OrgSagebionetworksRepoModelAuthRealmIdList } from '../model/org-sagebionetworks-repo-model-auth-realm-id-list';
 // @ts-ignore
-import { OrgSagebionetworksRepoModelSearchQuerySuggestionResults } from '../model/org-sagebionetworks-repo-model-search-query-suggestion-results';
-// @ts-ignore
-import { OrgSagebionetworksRepoModelSearchSearchResults } from '../model/org-sagebionetworks-repo-model-search-search-results';
+import { OrgSagebionetworksRepoModelAuthRealmPrincipal } from '../model/org-sagebionetworks-repo-model-auth-realm-principal';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
@@ -38,7 +36,7 @@ import { Configuration } from '../configuration';
 @Injectable({
   providedIn: 'root',
 })
-export class SearchServicesService {
+export class RealmServicesService {
   protected basePath = 'https://repo-prod.prod.sagebase.org';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
@@ -111,12 +109,12 @@ export class SearchServicesService {
   }
 
   /**
-   * @param orgSagebionetworksRepoModelSearchQuerySearchQuery
+   * @param id
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public postRepoV1Search(
-    orgSagebionetworksRepoModelSearchQuerySearchQuery: OrgSagebionetworksRepoModelSearchQuerySearchQuery,
+  public getRepoV1RealmId(
+    id: string,
     observe?: 'body',
     reportProgress?: boolean,
     options?: {
@@ -124,9 +122,9 @@ export class SearchServicesService {
       context?: HttpContext;
       transferCache?: boolean;
     },
-  ): Observable<OrgSagebionetworksRepoModelSearchSearchResults>;
-  public postRepoV1Search(
-    orgSagebionetworksRepoModelSearchQuerySearchQuery: OrgSagebionetworksRepoModelSearchQuerySearchQuery,
+  ): Observable<OrgSagebionetworksRepoModelAuthRealm>;
+  public getRepoV1RealmId(
+    id: string,
     observe?: 'response',
     reportProgress?: boolean,
     options?: {
@@ -134,9 +132,9 @@ export class SearchServicesService {
       context?: HttpContext;
       transferCache?: boolean;
     },
-  ): Observable<HttpResponse<OrgSagebionetworksRepoModelSearchSearchResults>>;
-  public postRepoV1Search(
-    orgSagebionetworksRepoModelSearchQuerySearchQuery: OrgSagebionetworksRepoModelSearchQuerySearchQuery,
+  ): Observable<HttpResponse<OrgSagebionetworksRepoModelAuthRealm>>;
+  public getRepoV1RealmId(
+    id: string,
     observe?: 'events',
     reportProgress?: boolean,
     options?: {
@@ -144,9 +142,9 @@ export class SearchServicesService {
       context?: HttpContext;
       transferCache?: boolean;
     },
-  ): Observable<HttpEvent<OrgSagebionetworksRepoModelSearchSearchResults>>;
-  public postRepoV1Search(
-    orgSagebionetworksRepoModelSearchQuerySearchQuery: OrgSagebionetworksRepoModelSearchQuerySearchQuery,
+  ): Observable<HttpEvent<OrgSagebionetworksRepoModelAuthRealm>>;
+  public getRepoV1RealmId(
+    id: string,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: {
@@ -155,23 +153,11 @@ export class SearchServicesService {
       transferCache?: boolean;
     },
   ): Observable<any> {
-    if (
-      orgSagebionetworksRepoModelSearchQuerySearchQuery === null ||
-      orgSagebionetworksRepoModelSearchQuerySearchQuery === undefined
-    ) {
-      throw new Error(
-        'Required parameter orgSagebionetworksRepoModelSearchQuerySearchQuery was null or undefined when calling postRepoV1Search.',
-      );
+    if (id === null || id === undefined) {
+      throw new Error('Required parameter id was null or undefined when calling getRepoV1RealmId.');
     }
 
     let localVarHeaders = this.defaultHeaders;
-
-    let localVarCredential: string | undefined;
-    // authentication (bearerAuth) required
-    localVarCredential = this.configuration.lookupCredential('bearerAuth');
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
-    }
 
     let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
     if (localVarHttpHeaderAcceptSelected === undefined) {
@@ -193,14 +179,6 @@ export class SearchServicesService {
       localVarTransferCache = true;
     }
 
-    // to determine the Content-Type header
-    const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected: string | undefined =
-      this.configuration.selectHeaderContentType(consumes);
-    if (httpContentTypeSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
-    }
-
     let responseType_: 'text' | 'json' | 'blob' = 'json';
     if (localVarHttpHeaderAcceptSelected) {
       if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
@@ -212,13 +190,12 @@ export class SearchServicesService {
       }
     }
 
-    let localVarPath = `/repo/v1/search`;
-    return this.httpClient.request<OrgSagebionetworksRepoModelSearchSearchResults>(
-      'post',
+    let localVarPath = `/repo/v1/realm/${this.configuration.encodeParam({ name: 'id', value: id, in: 'path', style: 'simple', explode: false, dataType: 'string', dataFormat: undefined })}`;
+    return this.httpClient.request<OrgSagebionetworksRepoModelAuthRealm>(
+      'get',
       `${this.configuration.basePath}${localVarPath}`,
       {
         context: localVarHttpContext,
-        body: orgSagebionetworksRepoModelSearchQuerySearchQuery,
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
         headers: localVarHeaders,
@@ -230,12 +207,12 @@ export class SearchServicesService {
   }
 
   /**
-   * @param orgSagebionetworksRepoModelSearchQuerySuggestionQuery
+   * @param id
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public postRepoV1Suggestion(
-    orgSagebionetworksRepoModelSearchQuerySuggestionQuery: OrgSagebionetworksRepoModelSearchQuerySuggestionQuery,
+  public getRepoV1RealmIdPrincipals(
+    id: string,
     observe?: 'body',
     reportProgress?: boolean,
     options?: {
@@ -243,9 +220,9 @@ export class SearchServicesService {
       context?: HttpContext;
       transferCache?: boolean;
     },
-  ): Observable<OrgSagebionetworksRepoModelSearchQuerySuggestionResults>;
-  public postRepoV1Suggestion(
-    orgSagebionetworksRepoModelSearchQuerySuggestionQuery: OrgSagebionetworksRepoModelSearchQuerySuggestionQuery,
+  ): Observable<OrgSagebionetworksRepoModelAuthRealmPrincipal>;
+  public getRepoV1RealmIdPrincipals(
+    id: string,
     observe?: 'response',
     reportProgress?: boolean,
     options?: {
@@ -253,9 +230,9 @@ export class SearchServicesService {
       context?: HttpContext;
       transferCache?: boolean;
     },
-  ): Observable<HttpResponse<OrgSagebionetworksRepoModelSearchQuerySuggestionResults>>;
-  public postRepoV1Suggestion(
-    orgSagebionetworksRepoModelSearchQuerySuggestionQuery: OrgSagebionetworksRepoModelSearchQuerySuggestionQuery,
+  ): Observable<HttpResponse<OrgSagebionetworksRepoModelAuthRealmPrincipal>>;
+  public getRepoV1RealmIdPrincipals(
+    id: string,
     observe?: 'events',
     reportProgress?: boolean,
     options?: {
@@ -263,9 +240,9 @@ export class SearchServicesService {
       context?: HttpContext;
       transferCache?: boolean;
     },
-  ): Observable<HttpEvent<OrgSagebionetworksRepoModelSearchQuerySuggestionResults>>;
-  public postRepoV1Suggestion(
-    orgSagebionetworksRepoModelSearchQuerySuggestionQuery: OrgSagebionetworksRepoModelSearchQuerySuggestionQuery,
+  ): Observable<HttpEvent<OrgSagebionetworksRepoModelAuthRealmPrincipal>>;
+  public getRepoV1RealmIdPrincipals(
+    id: string,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: {
@@ -274,15 +251,190 @@ export class SearchServicesService {
       transferCache?: boolean;
     },
   ): Observable<any> {
-    if (
-      orgSagebionetworksRepoModelSearchQuerySuggestionQuery === null ||
-      orgSagebionetworksRepoModelSearchQuerySuggestionQuery === undefined
-    ) {
+    if (id === null || id === undefined) {
       throw new Error(
-        'Required parameter orgSagebionetworksRepoModelSearchQuerySuggestionQuery was null or undefined when calling postRepoV1Suggestion.',
+        'Required parameter id was null or undefined when calling getRepoV1RealmIdPrincipals.',
       );
     }
 
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let localVarTransferCache: boolean | undefined = options && options.transferCache;
+    if (localVarTransferCache === undefined) {
+      localVarTransferCache = true;
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let localVarPath = `/repo/v1/realm/${this.configuration.encodeParam({ name: 'id', value: id, in: 'path', style: 'simple', explode: false, dataType: 'string', dataFormat: undefined })}/principals`;
+    return this.httpClient.request<OrgSagebionetworksRepoModelAuthRealmPrincipal>(
+      'get',
+      `${this.configuration.basePath}${localVarPath}`,
+      {
+        context: localVarHttpContext,
+        responseType: <any>responseType_,
+        withCredentials: this.configuration.withCredentials,
+        headers: localVarHeaders,
+        observe: observe,
+        transferCache: localVarTransferCache,
+        reportProgress: reportProgress,
+      },
+    );
+  }
+
+  /**
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getRepoV1RealmList(
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: {
+      httpHeaderAccept?: 'application/json';
+      context?: HttpContext;
+      transferCache?: boolean;
+    },
+  ): Observable<OrgSagebionetworksRepoModelAuthRealmIdList>;
+  public getRepoV1RealmList(
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: {
+      httpHeaderAccept?: 'application/json';
+      context?: HttpContext;
+      transferCache?: boolean;
+    },
+  ): Observable<HttpResponse<OrgSagebionetworksRepoModelAuthRealmIdList>>;
+  public getRepoV1RealmList(
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: {
+      httpHeaderAccept?: 'application/json';
+      context?: HttpContext;
+      transferCache?: boolean;
+    },
+  ): Observable<HttpEvent<OrgSagebionetworksRepoModelAuthRealmIdList>>;
+  public getRepoV1RealmList(
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: {
+      httpHeaderAccept?: 'application/json';
+      context?: HttpContext;
+      transferCache?: boolean;
+    },
+  ): Observable<any> {
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let localVarTransferCache: boolean | undefined = options && options.transferCache;
+    if (localVarTransferCache === undefined) {
+      localVarTransferCache = true;
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let localVarPath = `/repo/v1/realm/list`;
+    return this.httpClient.request<OrgSagebionetworksRepoModelAuthRealmIdList>(
+      'get',
+      `${this.configuration.basePath}${localVarPath}`,
+      {
+        context: localVarHttpContext,
+        responseType: <any>responseType_,
+        withCredentials: this.configuration.withCredentials,
+        headers: localVarHeaders,
+        observe: observe,
+        transferCache: localVarTransferCache,
+        reportProgress: reportProgress,
+      },
+    );
+  }
+
+  /**
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getRepoV1RealmPrincipals(
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: {
+      httpHeaderAccept?: 'application/json';
+      context?: HttpContext;
+      transferCache?: boolean;
+    },
+  ): Observable<OrgSagebionetworksRepoModelAuthRealmPrincipal>;
+  public getRepoV1RealmPrincipals(
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: {
+      httpHeaderAccept?: 'application/json';
+      context?: HttpContext;
+      transferCache?: boolean;
+    },
+  ): Observable<HttpResponse<OrgSagebionetworksRepoModelAuthRealmPrincipal>>;
+  public getRepoV1RealmPrincipals(
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: {
+      httpHeaderAccept?: 'application/json';
+      context?: HttpContext;
+      transferCache?: boolean;
+    },
+  ): Observable<HttpEvent<OrgSagebionetworksRepoModelAuthRealmPrincipal>>;
+  public getRepoV1RealmPrincipals(
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: {
+      httpHeaderAccept?: 'application/json';
+      context?: HttpContext;
+      transferCache?: boolean;
+    },
+  ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
     let localVarCredential: string | undefined;
@@ -312,14 +464,6 @@ export class SearchServicesService {
       localVarTransferCache = true;
     }
 
-    // to determine the Content-Type header
-    const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected: string | undefined =
-      this.configuration.selectHeaderContentType(consumes);
-    if (httpContentTypeSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
-    }
-
     let responseType_: 'text' | 'json' | 'blob' = 'json';
     if (localVarHttpHeaderAcceptSelected) {
       if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
@@ -331,13 +475,12 @@ export class SearchServicesService {
       }
     }
 
-    let localVarPath = `/repo/v1/suggestion`;
-    return this.httpClient.request<OrgSagebionetworksRepoModelSearchQuerySuggestionResults>(
-      'post',
+    let localVarPath = `/repo/v1/realm/principals`;
+    return this.httpClient.request<OrgSagebionetworksRepoModelAuthRealmPrincipal>(
+      'get',
       `${this.configuration.basePath}${localVarPath}`,
       {
         context: localVarHttpContext,
-        body: orgSagebionetworksRepoModelSearchQuerySuggestionQuery,
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
         headers: localVarHeaders,

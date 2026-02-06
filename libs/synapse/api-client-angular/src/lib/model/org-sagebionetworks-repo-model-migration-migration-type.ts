@@ -9,7 +9,10 @@
  */
 
 export type OrgSagebionetworksRepoModelMigrationMigrationType =
+  | 'REALM'
+  | 'REALM_IDP'
   | 'PRINCIPAL'
+  | 'REALM_PRINCIPAL'
   | 'GROUP_MEMBERS'
   | 'CREDENTIAL'
   | 'AUTHENTICATED_ON'
@@ -132,13 +135,17 @@ export type OrgSagebionetworksRepoModelMigrationMigrationType =
   | 'GRID_REPLICA'
   | 'GRID_CONNECTION'
   | 'GRID_PATCH'
+  | 'GRID_SNAPSHOT'
   | 'CURATION_TASK'
   | 'USER_STATUS'
   | 'RECORDSET_VALIDATION_STATS'
   | 'CHANGE';
 
 export const OrgSagebionetworksRepoModelMigrationMigrationType = {
+  Realm: 'REALM' as OrgSagebionetworksRepoModelMigrationMigrationType,
+  RealmIdp: 'REALM_IDP' as OrgSagebionetworksRepoModelMigrationMigrationType,
   Principal: 'PRINCIPAL' as OrgSagebionetworksRepoModelMigrationMigrationType,
+  RealmPrincipal: 'REALM_PRINCIPAL' as OrgSagebionetworksRepoModelMigrationMigrationType,
   GroupMembers: 'GROUP_MEMBERS' as OrgSagebionetworksRepoModelMigrationMigrationType,
   Credential: 'CREDENTIAL' as OrgSagebionetworksRepoModelMigrationMigrationType,
   AuthenticatedOn: 'AUTHENTICATED_ON' as OrgSagebionetworksRepoModelMigrationMigrationType,
@@ -287,6 +294,7 @@ export const OrgSagebionetworksRepoModelMigrationMigrationType = {
   GridReplica: 'GRID_REPLICA' as OrgSagebionetworksRepoModelMigrationMigrationType,
   GridConnection: 'GRID_CONNECTION' as OrgSagebionetworksRepoModelMigrationMigrationType,
   GridPatch: 'GRID_PATCH' as OrgSagebionetworksRepoModelMigrationMigrationType,
+  GridSnapshot: 'GRID_SNAPSHOT' as OrgSagebionetworksRepoModelMigrationMigrationType,
   CurationTask: 'CURATION_TASK' as OrgSagebionetworksRepoModelMigrationMigrationType,
   UserStatus: 'USER_STATUS' as OrgSagebionetworksRepoModelMigrationMigrationType,
   RecordsetValidationStats:

@@ -16,7 +16,10 @@ export interface OrgSagebionetworksRepoModelMigrationMigrationTypeList {
 }
 export namespace OrgSagebionetworksRepoModelMigrationMigrationTypeList {
   export type ListEnum =
+    | 'REALM'
+    | 'REALM_IDP'
     | 'PRINCIPAL'
+    | 'REALM_PRINCIPAL'
     | 'GROUP_MEMBERS'
     | 'CREDENTIAL'
     | 'AUTHENTICATED_ON'
@@ -139,12 +142,16 @@ export namespace OrgSagebionetworksRepoModelMigrationMigrationTypeList {
     | 'GRID_REPLICA'
     | 'GRID_CONNECTION'
     | 'GRID_PATCH'
+    | 'GRID_SNAPSHOT'
     | 'CURATION_TASK'
     | 'USER_STATUS'
     | 'RECORDSET_VALIDATION_STATS'
     | 'CHANGE';
   export const ListEnum = {
+    Realm: 'REALM' as ListEnum,
+    RealmIdp: 'REALM_IDP' as ListEnum,
     Principal: 'PRINCIPAL' as ListEnum,
+    RealmPrincipal: 'REALM_PRINCIPAL' as ListEnum,
     GroupMembers: 'GROUP_MEMBERS' as ListEnum,
     Credential: 'CREDENTIAL' as ListEnum,
     AuthenticatedOn: 'AUTHENTICATED_ON' as ListEnum,
@@ -267,6 +274,7 @@ export namespace OrgSagebionetworksRepoModelMigrationMigrationTypeList {
     GridReplica: 'GRID_REPLICA' as ListEnum,
     GridConnection: 'GRID_CONNECTION' as ListEnum,
     GridPatch: 'GRID_PATCH' as ListEnum,
+    GridSnapshot: 'GRID_SNAPSHOT' as ListEnum,
     CurationTask: 'CURATION_TASK' as ListEnum,
     UserStatus: 'USER_STATUS' as ListEnum,
     RecordsetValidationStats: 'RECORDSET_VALIDATION_STATS' as ListEnum,

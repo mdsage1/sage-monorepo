@@ -28,7 +28,10 @@ export namespace OrgSagebionetworksRepoModelMigrationMigrationRangeChecksum {
       'org.sagebionetworks.repo.model.migration.MigrationRangeChecksum' as ConcreteTypeEnum,
   };
   export type TypeEnum =
+    | 'REALM'
+    | 'REALM_IDP'
     | 'PRINCIPAL'
+    | 'REALM_PRINCIPAL'
     | 'GROUP_MEMBERS'
     | 'CREDENTIAL'
     | 'AUTHENTICATED_ON'
@@ -151,12 +154,16 @@ export namespace OrgSagebionetworksRepoModelMigrationMigrationRangeChecksum {
     | 'GRID_REPLICA'
     | 'GRID_CONNECTION'
     | 'GRID_PATCH'
+    | 'GRID_SNAPSHOT'
     | 'CURATION_TASK'
     | 'USER_STATUS'
     | 'RECORDSET_VALIDATION_STATS'
     | 'CHANGE';
   export const TypeEnum = {
+    Realm: 'REALM' as TypeEnum,
+    RealmIdp: 'REALM_IDP' as TypeEnum,
     Principal: 'PRINCIPAL' as TypeEnum,
+    RealmPrincipal: 'REALM_PRINCIPAL' as TypeEnum,
     GroupMembers: 'GROUP_MEMBERS' as TypeEnum,
     Credential: 'CREDENTIAL' as TypeEnum,
     AuthenticatedOn: 'AUTHENTICATED_ON' as TypeEnum,
@@ -279,6 +286,7 @@ export namespace OrgSagebionetworksRepoModelMigrationMigrationRangeChecksum {
     GridReplica: 'GRID_REPLICA' as TypeEnum,
     GridConnection: 'GRID_CONNECTION' as TypeEnum,
     GridPatch: 'GRID_PATCH' as TypeEnum,
+    GridSnapshot: 'GRID_SNAPSHOT' as TypeEnum,
     CurationTask: 'CURATION_TASK' as TypeEnum,
     UserStatus: 'USER_STATUS' as TypeEnum,
     RecordsetValidationStats: 'RECORDSET_VALIDATION_STATS' as TypeEnum,
